@@ -1,0 +1,10 @@
+
+{
+  "general": {
+    "defaultApprovalMode": "default"
+  },
+  "security": {
+    "disableYoloMode": true,
+    "disableAlwaysAllow": true
+  }
+}
