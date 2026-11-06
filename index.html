@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e8eee4" />
+    <meta name="description" content="A quiet little game of instinct, spoons, and the occasional surprise." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+    <title>Spoontastic - The Oracle's Table</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="wordmark" href="#" aria-label="Spoontastic home">
+          <span class="wordmark-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>SPOON<span class="wordmark-accent">TASTIC</span></span>
+        </a>
+        <div class="run-label"><span class="live-dot"></span> THE ORACLE'S TABLE <span class="run-divider">/</span> PRACTICE RUN</div>
+        <div class="top-stats" aria-label="Run statistics">
+          <div class="top-stat"><span class="stat-label">MONEY</span><strong id="money-value">$0</strong></div>
+          <div class="top-stat"><span class="stat-label">REPUTATION</span><strong id="reputation-value">0</strong></div>
+          <div class="top-stat top-stat-accuracy"><span class="stat-label">ACCURACY</span><strong id="accuracy-value">0%</strong></div>
+        </div>
+      </header>
+
+      <main class="game-layout">
+        <section class="table-column" aria-labelledby="page-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">A STUDY IN INTUITION</p>
+              <h1 id="page-title">Tonight's reading</h1>
+            </div>
+            <span class="round-count"><span class="round-count-dot"></span><span id="round-value">ROUND 01</span></span>
+          </div>
+          <div class="scene-wrap">
+            <canvas id="game-canvas" aria-label="Swipe left or right across the table to predict the spoon bend"></canvas>
+            <div class="scene-stamp">ECSTATIC ORACLE <span>NO. 01</span></div>
+            <div class="scene-message" id="scene-message" aria-live="polite">Swipe across the table to make your prediction.</div>
+          </div>
+          <div class="table-caption">
+            <span>THE SILVER READING</span>
+            <span class="caption-right"><span class="caption-sparkle" aria-hidden="true">✳</span> A LITTLE FATE, A LITTLE LUCK</span>
+          </div>
+        </section>
+
+        <aside class="play-panel" aria-label="Game controls and upgrade">
+          <section class="guess-section" aria-labelledby="guess-heading">
+            <p class="eyebrow">YOUR INSTINCT</p>
+            <h2 id="guess-heading">Swipe to predict</h2>
+            <p class="swipe-hint">Swipe left or right anywhere on the table.</p>
+            <p class="feedback" id="feedback" aria-live="polite">A fresh reading awaits.</p>
+          </section>
+
+          <section class="accuracy-section" aria-label="Prediction accuracy">
+            <div class="accuracy-line"><span>YOUR ACCURACY</span><strong id="accuracy-detail">0%</strong></div>
+            <div class="accuracy-track" role="progressbar" aria-label="Prediction accuracy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="accuracy-track">
+              <span id="accuracy-bar"></span>
+            </div>
+            <p class="accuracy-footnote" id="prediction-count">0 correct of 0 readings</p>
+          </section>
+
+          <section class="upgrade-section" aria-labelledby="upgrade-title">
+            <div class="upgrade-overline"><span class="upgrade-symbol" aria-hidden="true">✧</span> A QUIETER MIND</div>
+            <h3 id="upgrade-title">Silver clarity</h3>
+            <p class="upgrade-description">Your good readings become more valuable.</p>
+            <div class="upgrade-bottom">
+              <span class="upgrade-cost" id="upgrade-cost">$24</span>
+              <button class="upgrade-button" id="upgrade-button" type="button" disabled>
+                <span>Deepen intuition</span><span aria-hidden="true">↗</span>
+              </button>
+            </div>
+            <p class="upgrade-level" id="upgrade-level">LEVEL 0 <span>·</span> +35% PER LEVEL</p>
+          </section>
+
+          <div class="save-note"><span class="save-check" aria-hidden="true">✓</span> Progress saved on this device</div>
+        </aside>
+      </main>
+      <footer class="page-footer"><span>ECSTATIC ORACLE</span><span>FOLLOW THE BEND</span></footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
