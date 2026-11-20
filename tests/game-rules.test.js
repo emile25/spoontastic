@@ -22,9 +22,9 @@ describe('game rules', () => {
     const result = resolvePrediction(createInitialGameState(), 'left', 'left');
 
     expect(result.isCorrect).toBe(true);
-    expect(result.moneyReward).toBe(12);
+    expect(result.moneyReward).toBe(1);
     expect(result.reputationReward).toBe(3);
-    expect(result.state).toMatchObject({ money: 12, reputation: 3, correctPredictions: 1, totalPredictions: 1 });
+    expect(result.state).toMatchObject({ money: 1, reputation: 3, correctPredictions: 1, totalPredictions: 1 });
   });
 
   it('counts an incorrect prediction without awarding a reward', () => {
@@ -41,7 +41,7 @@ describe('game rules', () => {
     expect(getAccuracy({ correctPredictions: 2, totalPredictions: 3 })).toBeCloseTo(2 / 3);
   });
 
-  it('increases rewards after buying an upgrade and rejects unaffordable purchases', () => {
+  it('applies upgrade multipliers after purchasing and rejects unaffordable purchases', () => {
     const state = { ...createInitialGameState(), money: 24 };
     const purchase = purchaseUpgrade(state);
     const reward = resolvePrediction(purchase.state, 'right', 'right');
@@ -49,7 +49,7 @@ describe('game rules', () => {
     expect(purchase.purchased).toBe(true);
     expect(purchase.state.money).toBe(0);
     expect(getRewardMultiplier(purchase.state)).toBe(1.35);
-    expect(reward.moneyReward).toBe(16);
+    expect(reward.moneyReward).toBe(2);
     expect(getUpgradeCost(purchase.state)).toBe(42);
     expect(purchaseUpgrade(purchase.state).purchased).toBe(false);
   });

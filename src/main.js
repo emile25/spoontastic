@@ -29,7 +29,7 @@ function render() {
   const accuracy = getAccuracy(state);
   const percent = Math.round(accuracy * 100);
   const upgradeCost = getUpgradeCost(state);
-  elements.money.textContent = `$${compactNumber.format(state.money)}`;
+  elements.money.textContent = `€${compactNumber.format(state.money)}`;
   elements.reputation.textContent = compactNumber.format(state.reputation);
   elements.accuracy.textContent = `${percent}%`;
   elements.accuracyDetail.textContent = `${percent}%`;
@@ -37,7 +37,7 @@ function render() {
   elements.accuracyBar.style.width = `${percent}%`;
   elements.predictionCount.textContent = `${state.correctPredictions} correct of ${state.totalPredictions} readings`;
   elements.round.textContent = `ROUND ${String(roundNumber).padStart(2, '0')}`;
-  elements.upgradeCost.textContent = `$${compactNumber.format(upgradeCost)}`;
+  elements.upgradeCost.textContent = `€${compactNumber.format(upgradeCost)}`;
   elements.upgradeLevel.innerHTML = `LEVEL ${state.upgradeLevel} <span>·</span> +35% PER LEVEL`;
   elements.upgradeButton.disabled = phase !== 'ready' || state.money < upgradeCost;
 }
@@ -53,17 +53,19 @@ function submitPrediction(prediction) {
   render();
 
   if (result.isCorrect) {
-    elements.feedback.textContent = `Correct. The spoon bent ${actualDirection}. +$${result.moneyReward} · +${result.reputationReward} reputation`;
+    elements.feedback.textContent = `Correct. The spoon bent ${actualDirection}. +€${result.moneyReward} · +${result.reputationReward} reputation`;
     elements.sceneMessage.textContent = `Correct reading: it bent ${actualDirection}.`;
   } else {
     elements.feedback.textContent = `Wrong reading. The spoon bent ${actualDirection}.`;
     elements.sceneMessage.textContent = `Wrong reading: it bent ${actualDirection}.`;
     elements.appShell.classList.remove('is-shaking');
+    document.body.classList.remove('is-error-flashing');
     void elements.appShell.offsetWidth;
     elements.appShell.classList.add('is-shaking');
+    document.body.classList.add('is-error-flashing');
   }
 
-  scene.resolvePrediction(actualDirection, result.isCorrect);
+  scene.resolvePrediction(actualDirection);
 }
 
 function finishRound() {
@@ -75,6 +77,12 @@ function finishRound() {
 
 const scene = await SpoonScene.create(document.querySelector('#game-canvas'), finishRound);
 scene.onSwipe = submitPrediction;
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    event.preventDefault();
+    submitPrediction(event.key === 'ArrowLeft' ? 'left' : 'right');
+  }
+});
 
 elements.upgradeButton.addEventListener('click', () => {
   if (phase !== 'ready') return;

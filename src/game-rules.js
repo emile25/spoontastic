@@ -30,7 +30,7 @@ export function resolvePrediction(state, prediction, actualDirection) {
 
   const isCorrect = prediction === actualDirection;
   const multiplier = getRewardMultiplier(state);
-  const moneyReward = isCorrect ? Math.round(12 * multiplier) : 0;
+  const moneyReward = isCorrect ? Math.ceil(1 * multiplier) : 0;
   const reputationReward = isCorrect ? Math.round(3 * multiplier) : 0;
 
   return {
